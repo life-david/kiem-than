@@ -49,11 +49,12 @@ export function initHandTracking(videoElement: HTMLVideoElement) {
         console.warn('Auto-play failed, waiting for user interaction', e);
       });
 
-      const vision = await FilesetResolver.forVisionTasks('/models/wasm');
+      const baseUrl = import.meta.env.BASE_URL;
+      const vision = await FilesetResolver.forVisionTasks(`${baseUrl}models/wasm`);
 
       globalLandmarker = await HandLandmarker.createFromOptions(vision, {
         baseOptions: {
-          modelAssetPath: '/models/hand_landmarker.task',
+          modelAssetPath: `${baseUrl}models/hand_landmarker.task`,
           delegate: 'GPU',
         },
         runningMode: 'VIDEO',
